@@ -58,8 +58,8 @@ class DropdownMenu extends Plugin {
     var subs = this.$element.find('li.is-dropdown-submenu-parent');
     this.$element.children('.is-dropdown-submenu-parent').children('.is-dropdown-submenu').addClass('first-sub');
 
-    this.$menuItems = this.$element.find('[role="menuitem"]');
-    this.$tabs = this.$element.children('[role="menuitem"]');
+    this.$menuItems = this.$element.find('li[role="none"]');
+    this.$tabs = this.$element.children('li[role="none"]');
     this.$tabs.find('ul.is-dropdown-submenu').addClass(this.options.verticalClass);
 
     if (this.options.alignment === 'auto') {
@@ -152,7 +152,7 @@ class DropdownMenu extends Plugin {
             _this._show($elem.children('.is-dropdown-submenu'));
           }, _this.options.hoverDelay));
         }
-      }).on('mouseleave.zf.dropdownmenu', ignoreMousedisappear(function (e) {
+      }).on('mouseleave.zf.dropdownMenu', ignoreMousedisappear(function (e) {
         var $elem = $(this),
             hasSub = $elem.hasClass(parClass);
         if (hasSub && _this.options.autoclose) {
@@ -166,7 +166,7 @@ class DropdownMenu extends Plugin {
       }));
     }
     this.$menuItems.on('keydown.zf.dropdownMenu', function(e) {
-      var $element = $(e.target).parentsUntil('ul', '[role="menuitem"]'),
+      var $element = $(e.target).parentsUntil('ul', '[role="none"]'),
           isTab = _this.$tabs.index($element) > -1,
           $elements = isTab ? _this.$tabs : $element.siblings('li').add($element),
           $prevElement,
